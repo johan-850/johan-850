@@ -46,16 +46,23 @@ jobs:
                   pr = e.get("payload", {}).get("pull_request", {})
                   title = pr.get("title", "Pull Request")
                   link = pr.get("html_url", "")
-                  if link and link not in seen:
+                if action in {"opened", "closed", "reopened", "synchronize"} and link and link not in seen:
                       lines.append(f"- {created}: PR {action} en [{repo}]({link}) - {title}")
                       seen.add(link)
 
               elif event_type == "PushEvent":
                   commits = e.get("payload", {}).get("size", 0)
                   key = (repo, created, commits)
-                  if repo and key not in seen:
+                if repo and commits and commits > 0 and key not in seen:
                       lines.append(f"- {created}: {commits} commit(s) en **{repo}**")
                       seen.add(key)
+
+              elif event_type == "CreateEvent":
+                ref_type = e.get("payload", {}).get("ref_type", "")
+                key = (repo, created, ref_type)
+                if repo and ref_type == "repository" and key not in seen:
+                  lines.append(f"- {created}: nuevo repositorio creado **{repo}**")
+                  seen.add(key)
 
               if len(lines) >= 8:
                   break
