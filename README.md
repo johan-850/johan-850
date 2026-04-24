@@ -1,4 +1,4 @@
-<h1 align="center">Hola, soy Johan</h1>
+﻿<h1 align="center">Hola, soy Johan</h1>
 <p align="center">
   Estudiante de software enfocado en construir soluciones utiles, claras y escalables.
 </p>
