@@ -2,7 +2,7 @@
 
 on:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 */8 * * *"
   workflow_dispatch:
 
 permissions:
@@ -15,11 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update recent activity section in README
-        uses: Readme-Workflows/recent-activity@v2
+      - name: Update README activity section
+        uses: jamesgeorge007/github-activity-readme@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_MSG: "docs: actualizar actividad reciente del perfil"
           MAX_LINES: 8
-          COMMIT_NAME: "github-actions[bot]"
-          COMMIT_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
