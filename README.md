@@ -52,9 +52,7 @@ PRs de referencia:
 
 ## Actividad reciente automatica
 <!--START_SECTION:activity-->
-- 2026-04-24: 0 commit(s) en **johan-850/johan-850**
-- 2026-04-22: 0 commit(s) en **johan-850/Sistema_FH**
-- 2026-04-13: 0 commit(s) en **CamiloTriana75/FinanzasU**
+- Sin actividad publica reciente para mostrar.
 <!--END_SECTION:activity-->
 
 ## Contacto
