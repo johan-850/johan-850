@@ -2,98 +2,33 @@
 
 on:
   schedule:
-    name: Update Profile Recent Activity
+    - cron: "0 */8 * * *"
+  workflow_dispatch:
 
-    on:
-      schedule:
-        - cron: "0 */8 * * *"
-      workflow_dispatch:
+permissions:
+  contents: write
 
-    permissions:
-      contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    jobs:
-      update:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout repository
-            uses: actions/checkout@v4
+      - name: Build recent activity block
+        env:
+          GH_USER: johan-850
+        run: python .github/scripts/update_activity.py
 
-          - name: Build recent activity block
-            env:
-              GH_USER: johan-850
-            run: |
-              python - << 'PY'
-              import json
-              import os
-              import re
-              import urllib.request
-              from pathlib import Path
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
 
-              user = os.environ.get("GH_USER", "johan-850")
-              url = f"https://api.github.com/users/{user}/events/public?per_page=30"
-              req = urllib.request.Request(url, headers={"User-Agent": "profile-activity-bot"})
-
-              with urllib.request.urlopen(req, timeout=20) as resp:
-                  events = json.loads(resp.read().decode("utf-8"))
-
-              lines = []
-              seen = set()
-
-              for e in events:
-                  event_type = e.get("type", "")
-                  repo = e.get("repo", {}).get("name", "")
-                  created = (e.get("created_at") or "")[:10]
-
-                  if event_type == "PullRequestEvent":
-                      action = e.get("payload", {}).get("action", "updated")
-                      pr = e.get("payload", {}).get("pull_request", {})
-                      title = pr.get("title", "Pull Request")
-                      link = pr.get("html_url", "")
-                      if action in {"opened", "closed", "reopened", "synchronize"} and link and link not in seen:
-                          lines.append(f"- {created}: PR {action} en [{repo}]({link}) - {title}")
-                          seen.add(link)
-
-                  elif event_type == "PushEvent":
-                      commits = e.get("payload", {}).get("size", 0)
-                      key = (repo, created, commits)
-                      if repo and commits and commits > 0 and key not in seen:
-                          lines.append(f"- {created}: {commits} commit(s) en **{repo}**")
-                          seen.add(key)
-
-                  elif event_type == "CreateEvent":
-                      ref_type = e.get("payload", {}).get("ref_type", "")
-                      key = (repo, created, ref_type)
-                      if repo and ref_type == "repository" and key not in seen:
-                          lines.append(f"- {created}: nuevo repositorio creado **{repo}**")
-                          seen.add(key)
-
-                  if len(lines) >= 8:
-                      break
-
-              if not lines:
-                  lines = ["- Sin actividad publica reciente para mostrar."]
-
-              readme = Path("README.md")
-              text = readme.read_text(encoding="utf-8")
-              start = "<!--START_SECTION:activity-->"
-              end = "<!--END_SECTION:activity-->"
-              block = start + "\n" + "\n".join(lines) + "\n" + end
-
-              pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), flags=re.S)
-              updated = pattern.sub(block, text)
-              readme.write_text(updated, encoding="utf-8")
-              PY
-
-          - name: Commit changes
-            run: |
-              if git diff --quiet; then
-                echo "No changes to commit"
-                exit 0
-              fi
-
-              git config user.name "github-actions[bot]"
-              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-              git add README.md
-              git commit -m "docs: actualizar actividad reciente del perfil"
-              git push
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: actualizar actividad reciente del perfil"
+          git push
