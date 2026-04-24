@@ -52,14 +52,9 @@ PRs de referencia:
 
 ## Actividad reciente automatica
 <!--START_SECTION:activity-->
-1. 🎉 Merged PR [#54](https://github.com/CamiloTriana75/FinanzasU/pull/54) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
-2. 💪 Opened PR [#54](https://github.com/CamiloTriana75/FinanzasU/pull/54) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
-3. 🎉 Merged PR [#36](https://github.com/CamiloTriana75/FinanzasU/pull/36) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
-4. 🎉 Merged PR [#35](https://github.com/CamiloTriana75/FinanzasU/pull/35) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
-5. 💪 Opened PR [#36](https://github.com/CamiloTriana75/FinanzasU/pull/36) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
-6. ❌ Closed PR [#33](https://github.com/CamiloTriana75/FinanzasU/pull/33) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
-7. 💪 Opened PR [#35](https://github.com/CamiloTriana75/FinanzasU/pull/35) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
-8. ℹ️ Reopened PR [#33](https://github.com/CamiloTriana75/FinanzasU/pull/33) in [CamiloTriana75/FinanzasU](https://github.com/CamiloTriana75/FinanzasU)
+- 2026-04-24: 0 commit(s) en **johan-850/johan-850**
+- 2026-04-22: 0 commit(s) en **johan-850/Sistema_FH**
+- 2026-04-13: 0 commit(s) en **CamiloTriana75/FinanzasU**
 <!--END_SECTION:activity-->
 
 ## Contacto
